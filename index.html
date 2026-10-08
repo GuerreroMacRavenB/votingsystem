@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SACATA NHS — SSLG Voting System</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="brand">
+      <div class="logo">SN</div>
+      <div class="brand-text">
+        <h1>SACATA National High School</h1>
+        <p>Supreme Secondary Learner Government (SSLG) Election</p>
+      </div>
+    </div>
+    <nav class="tabs">
+      <button class="tab active" data-view="vote" type="button">Ballot</button>
+      <button class="tab" data-view="results" type="button">Results</button>
+    </nav>
+  </header>
+
+  <main class="container">
+
+    <section id="view-vote">
+
+      <div id="step-verify" class="card">
+        <h2>Voter Verification</h2>
+        <p class="muted">Enter your details to open your ballot. Each student may cast <strong>one ballot only</strong>.</p>
+        <form id="verify-form" novalidate>
+          <div class="field">
+            <label for="student-id">Student ID</label>
+            <input type="text" id="student-id" placeholder="e.g. 2024-00123" maxlength="30" autocomplete="off" required>
+          </div>
+          <div class="field">
+            <label for="student-name">Full Name</label>
+            <input type="text" id="student-name" placeholder="Last name, First name" maxlength="60" autocomplete="off" required>
+          </div>
+          <div class="field">
+            <label for="student-section">Grade &amp; Section</label>
+            <input type="text" id="student-section" placeholder="e.g. Grade 12 - STEM" maxlength="40" autocomplete="off" required>
+          </div>
+          <p id="verify-error" class="error hidden"></p>
+          <button type="submit" class="btn primary block">Open Ballot</button>
+        </form>
+      </div>
+
+      <div id="step-ballot" class="hidden">
+        <div class="card ballot-top">
+          <div>
+            <h2>Official Ballot</h2>
+            <p class="muted" id="ballot-meta"></p>
+          </div>
+          <div class="progress">
+            <span id="progress-text">0 of 0 decided</span>
+            <div class="progress-track"><div id="progress-bar"></div></div>
+          </div>
+        </div>
+
+        <div id="ballot-container"></div>
+
+        <div class="actions">
+          <button class="btn ghost" id="btn-back" type="button">Back</button>
+          <button class="btn primary" id="btn-review" type="button" disabled>Review Ballot</button>
+        </div>
+      </div>
+
+      <div id="step-review" class="hidden">
+        <div class="card">
+          <h2>Review Your Ballot</h2>
+          <p class="muted">Check your choices carefully. You may still edit your ballot at this point.</p>
+          <div id="review-list"></div>
+          <p class="warning">Once you cast your ballot, it <strong>cannot be changed</strong>, and your student ID will be marked as having voted.</p>
+          <div class="actions">
+            <button class="btn ghost" id="btn-edit" type="button">Edit Ballot</button>
+            <button class="btn cast" id="btn-cast" type="button">Cast My Vote</button>
+          </div>
+        </div>
+      </div>
+
+      <div id="step-done" class="hidden">
+        <div class="card center">
+          <div class="check-mark">&#10003;</div>
+          <h2>Vote Cast Successfully</h2>
+          <p class="muted">Thank you for participating in the SSLG election.</p>
+          <p class="receipt" id="receipt"></p>
+          <button class="btn ghost" id="btn-new" type="button">Start for Next Voter</button>
+        </div>
+      </div>
+
+    </section>
+
+    <section id="view-results" class="hidden">
+
+      <div id="results-gate" class="card narrow">
+        <h2>Confidential Results</h2>
+        <p class="muted">Enter the administrator passcode to view election results.</p>
+        <div class="field">
+          <input type="password" id="pin" placeholder="Administrator passcode" autocomplete="off">
+        </div>
+        <p id="pin-error" class="error hidden">Incorrect passcode.</p>
+        <button class="btn primary block" id="btn-unlock" type="button">Unlock Results</button>
+      </div>
+
+      <div id="results-panel" class="hidden">
+        <div class="summary">
+          <div class="stat"><span class="stat-value" id="stat-cast">0</span><span class="stat-label">Ballots Cast</span></div>
+          <div class="stat"><span class="stat-value" id="stat-registered">Open</span><span class="stat-label">Registered Voters</span></div>
+          <div class="stat"><span class="stat-value" id="stat-turnout">—</span><span class="stat-label">Turnout</span></div>
+          <div class="stat"><span class="stat-value" id="stat-positions">0</span><span class="stat-label">Positions</span></div>
+        </div>
+
+        <div id="results-container"></div>
+
+        <div class="actions">
+          <button class="btn ghost" id="btn-lock" type="button">Lock Results</button>
+          <button class="btn ghost" id="btn-csv" type="button">Export CSV</button>
+          <button class="btn danger" id="btn-reset" type="button">Reset Election</button>
+        </div>
+      </div>
+
+    </section>
+
+  </main>
+
+  <footer class="site-footer">
+    <p>SACATA National High School &middot; SSLG Voting System &middot; Data is stored locally in this browser only.</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
